@@ -11,6 +11,8 @@
 		1C0CED1B969CD35651F44DB6 /* Pods_MeProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFEA2C703E736109F30C41BF /* Pods_MeProject.framework */; };
 		7EAB8A752C4E14BAFB00E8F6 /* Pods_MeProject_MeProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7A359D1B167C6ACA5EBA28D /* Pods_MeProject_MeProjectUITests.framework */; };
 		99864EC227731C6100AFFABE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99864EC127731C6000AFFABE /* GoogleService-Info.plist */; };
+		99864EC42773CBB200AFFABE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99864EC32773CBB200AFFABE /* User.swift */; };
+		99864EC62773CBDB00AFFABE /* BlogPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99864EC52773CBDB00AFFABE /* BlogPost.swift */; };
 		99C3C2DA2772E104005428A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C3C2D92772E104005428A3 /* AppDelegate.swift */; };
 		99C3C2DC2772E104005428A3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C3C2DB2772E104005428A3 /* SceneDelegate.swift */; };
 		99C3C2DE2772E104005428A3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C3C2DD2772E104005428A3 /* HomeViewController.swift */; };
@@ -52,6 +54,8 @@
 		06F515941C5078DF12D7243B /* Pods-MeProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-MeProjectTests/Pods-MeProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7EC6BBE0A4B514C844CDEAA7 /* Pods_MeProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MeProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		99864EC127731C6000AFFABE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		99864EC32773CBB200AFFABE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		99864EC52773CBDB00AFFABE /* BlogPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogPost.swift; sourceTree = "<group>"; };
 		99C3C2D62772E104005428A3 /* MeProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99C3C2D92772E104005428A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99C3C2DB2772E104005428A3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -181,6 +185,8 @@
 		99C3C30C2772E3D7005428A3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				99864EC32773CBB200AFFABE /* User.swift */,
+				99864EC52773CBDB00AFFABE /* BlogPost.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -504,12 +510,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99864EC62773CBDB00AFFABE /* BlogPost.swift in Sources */,
 				99C3C2DE2772E104005428A3 /* HomeViewController.swift in Sources */,
 				99C3C3232772E721005428A3 /* AuthManager.swift in Sources */,
 				99C3C3212772E6FD005428A3 /* DatabaseManager.swift in Sources */,
 				99C3C3192772E631005428A3 /* SignUpViewController.swift in Sources */,
 				99C3C2DA2772E104005428A3 /* AppDelegate.swift in Sources */,
 				99C3C3172772E600005428A3 /* SignInViewController.swift in Sources */,
+				99864EC42773CBB200AFFABE /* User.swift in Sources */,
 				99C3C3122772E595005428A3 /* ProfileViewController.swift in Sources */,
 				99C3C31D2772E686005428A3 /* CreateNewPostViewController.swift in Sources */,
 				99C3C31F2772E6CF005428A3 /* IAPManager.swift in Sources */,
