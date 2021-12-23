@@ -15,17 +15,111 @@ final class DatabaseManager {
     
     private init() {}
     
-    public func insert( blogPost: BlogPost, user: User, completion: @escaping (Bool) -> Void){
+    public func insert(blogPost: BlogPost,
+                       email: String,
+                       completion: @escaping (Bool) -> Void){
+        let userEmail = email
+                    .replacingOccurrences(of: ".", with: "_")
+                    .replacingOccurrences(of: "@", with: "_")
+
+                let data: [String: Any] = [
+                    "id": blogPost.identifier,
+                    "title": blogPost.title,
+                    "body": blogPost.text,
+                    "created": blogPost.timestamp,
+                    "headerImageUrl": blogPost.headerImageUrl?.absoluteString ?? ""
+                ]
+
+                database
+                    .collection("users")
+                    .document(userEmail)
+                    .collection("posts")
+                    .document(blogPost.identifier)
+                    .setData(data) { error in
+                        completion(error == nil)
+
+                    
+       }
         
     }
     
-    public func getAllPosts( completion: @escaping ([BlogPost]) -> Void){
+    public func getAllPosts(completion: @escaping ([BlogPost]) -> Void){
+        database
+                    .collection("users")
+                    .getDocuments { [weak self] snapshot, error in
+                        guard let documents = snapshot?.documents.compactMap({ $0.data() }),
+                              error == nil else {
+                            return
+                        }
+
+                        let emails: [String] = documents.compactMap({ $0["email"] as? String })
+                        print(emails)
+                        guard !emails.isEmpty else {
+                            completion([])
+                            return
+                        }
+
+                        let group = DispatchGroup()
+                        var result: [BlogPost] = []
+
+                        for email in emails {
+                            group.enter()
+                            self?.getPosts(for: email) { userPosts in
+                                defer {
+                                    group.leave()
+                                }
+                                result.append(contentsOf: userPosts)
+                            }
+                        }
+
+                        group.notify(queue: .global()) {
+                            print("Feed posts: \(result.count)")
+                            completion(result)
+                      }
+                
+            }
+    }
+    
+    public func getPosts(for email: String,
+                         completion: @escaping ([BlogPost]) -> Void){
+        let userEmail = email
+                    .replacingOccurrences(of: ".", with: "_")
+                    .replacingOccurrences(of: "@", with: "_")
+                database
+                    .collection("users")
+                    .document(userEmail)
+                    .collection("posts")
+                    .getDocuments { snapshot, error in
+                        guard let documents = snapshot?.documents.compactMap({ $0.data() }),
+                              error == nil else {
+                            return
+                        }
+
+                        let posts: [BlogPost] = documents.compactMap({ dictionary in
+                            guard let id = dictionary["id"] as? String,
+                                  let title = dictionary["title"] as? String,
+                                  let body = dictionary["body"] as? String,
+                                  let created = dictionary["created"] as? TimeInterval,
+                                  let imageUrlString = dictionary["headerImageUrl"] as? String else {
+                                print("Invalid post fetch conversion")
+                                return nil
+                            }
+                            let post = BlogPost(
+                                                    identifier: id,
+                                                    title: title,
+                                                    timestamp: created,
+                                                    headerImageUrl: URL(string: imageUrlString),
+                                                    text: body)
+                            return post
+                        
+          })
+
+                                        completion(posts)
+    }
         
     }
     
-    public func getPosts( for user: User, completion: @escaping ([BlogPost]) -> Void){
-        
-    }
+    
     
     public func insert( user: User, completion: @escaping (Bool) -> Void){
         let documentId = user.email.replacingOccurrences(of: ".", with: "_")
