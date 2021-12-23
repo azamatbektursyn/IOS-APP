@@ -18,6 +18,9 @@ final class IAPMAnager {
     func isPremium(){
         
     }
+    func subcribe() {
+        
+    }
     
     func restorePurchases(){
         
